@@ -11,5 +11,6 @@
 - Fragment
 - passing data btw fragments
 - swipe refresh feature
+- room database, ViewModel, LiveData
 
 [MVVM Habit Tracker App Tutorial in Android Studio (Room Database & ViewModel)](https://youtu.be/haquRxlKOXw "Named link title")
