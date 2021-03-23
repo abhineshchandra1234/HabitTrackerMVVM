@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_create_habit_item.*
 import java.util.*
 
 
-class CreateHabitItem : Fragment(),
+class CreateHabitItem : Fragment(R.layout.fragment_create_habit_item),
 TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 
     val TAG = "Main"
@@ -42,17 +42,9 @@ TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 
     private lateinit var habitViewModel: HabitViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_habit_item, container, false)
-    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d("Main", "onViewCreated: is called")
-        Toast.makeText(context, "onviewcreated is called", Toast.LENGTH_SHORT).show()
         habitViewModel = ViewModelProvider(this).get(HabitViewModel::class.java)
 
         btn_confirm.setOnClickListener {
@@ -93,13 +85,11 @@ TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 
     private fun pickDateAndTime() {
         btn_pickDate.setOnClickListener {
-            Log.d("Main", "pickDate is clicked")
             getDateCalender()
             DatePickerDialog(requireContext(),this,year,month,day).show()
         }
 
         btn_pickTime.setOnClickListener {
-            Log.d("Main", "pickTime is clicked")
             getTimeCalender()
             TimePickerDialog(context,this, hour, minute, true).show()
         }
