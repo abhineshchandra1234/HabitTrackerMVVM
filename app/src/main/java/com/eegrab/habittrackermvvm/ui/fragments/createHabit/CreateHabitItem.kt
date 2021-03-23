@@ -13,7 +13,9 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.eegrab.habittrackermvvm.R
+import com.eegrab.habittrackermvvm.data.models.Habit
 import com.eegrab.habittrackermvvm.ui.viewModels.HabitViewModel
 import com.eegrab.habittrackermvvm.utils.Calculations
 import kotlinx.android.synthetic.main.fragment_create_habit_item.*
@@ -48,13 +50,31 @@ TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
         habitViewModel = ViewModelProvider(this).get(HabitViewModel::class.java)
 
         btn_confirm.setOnClickListener {
-            //addHabitToDB()
+            addHabitToDB()
         }
 
         pickDateAndTime()
 
         drawableSelected()
 
+    }
+
+    private fun addHabitToDB() {
+        title = et_habitTitle.text.toString()
+        description = et_habitDescription.text.toString()
+
+        timeStamp = "$cleanDate $cleanTime"
+
+        if (!(title.isEmpty() || description.isEmpty() || timeStamp.isEmpty() || drawableSelected == 0)) {
+            val habit = Habit(0, title, description, timeStamp,drawableSelected)
+
+            habitViewModel.addHabit(habit)
+            Toast.makeText(context, "Habit created successfully", Toast.LENGTH_SHORT).show()
+
+            findNavController().navigate(R.id.action_createHabitItem_to_habitList)
+        } else {
+            Toast.makeText(context, "Please fill all the fields", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun drawableSelected() {
