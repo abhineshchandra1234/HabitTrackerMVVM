@@ -28,6 +28,25 @@ object Calculations {
         val hours = difference / 60 / 1000 / 60
         val days = (difference / 60 / 1000 / 60) / 24
         val months = (difference / 60 / 1000 / 60) / 24 / (365/12)
+        val years = difference / 60 / 1000 /60 / 24 / 365
+
+        if (isNegative) {
+            return when {
+                minutes < 240 -> "Starts in $minutes minutes"
+                hours < 48 -> "Starts in $hours hours"
+                days < 61 -> "Starts in $days days"
+                months < 24 -> "Starts in $months months"
+                else -> "Starts in $years years"
+            }
+        }
+
+        return when {
+            minutes < 240 -> "$minutes minutes ago"
+            hours < 48 -> "$hours hours ago"
+            days < 61 -> "$days days ago"
+            months < 24 -> "$months months ago"
+            else -> "$years years ago"
+        }
     }
 
     private fun timeStampToString(timeStamp: Long) : String  {
@@ -36,5 +55,33 @@ object Calculations {
         val date = sdf.format((Date(stamp.time)))
 
         return date.toString()
+    }
+
+    fun cleanDate(_day:Int, _month:Int, _year:Int) : String {
+        var day = _day.toString()
+        var month = _month.toString()
+
+        if (_day < 10) {
+            day = "0$_day"
+        }
+
+        if (_month < 9) {
+            month = "0${_month+1}"
+        }
+        return "$day/$month/$_year"
+    }
+
+    fun cleanTime(_hour:Int, _minute:Int) : String {
+        var hour = _hour.toString()
+        var minute = _minute.toString()
+
+        if (_hour < 10) {
+            hour = "0$_hour"
+        }
+        if (_minute < 10) {
+            minute = "0$_minute"
+        }
+
+        return "$hour:$minute"
     }
 }
