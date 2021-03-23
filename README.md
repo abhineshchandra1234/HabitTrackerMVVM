@@ -13,4 +13,4 @@
 - swipe refresh feature
 - room database, ViewModel, LiveData
 
-[MVVM Habit Tracker App Tutorial in Android Studio (Room Database & ViewModel)](https://youtu.be/haquRxlKOXw "Named link title")
+[MVVM Habit Tracker App Tutorial in Android Studio (Room Database & ViewModel)](https://youtu.be/AWEalFAD5j8 "Named link title")
