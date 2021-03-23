@@ -14,14 +14,13 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.eegrab.habittrackermvvm.R
-import com.eegrab.habittrackermvvm.databinding.FragmentCreateHabitItemBinding
 import com.eegrab.habittrackermvvm.ui.viewModels.HabitViewModel
 import com.eegrab.habittrackermvvm.utils.Calculations
 import kotlinx.android.synthetic.main.fragment_create_habit_item.*
 import java.util.*
 
 
-class CreateHabitItem : Fragment(R.layout.fragment_create_habit_item),
+class CreateHabitItem : Fragment(),
 TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 
     val TAG = "Main"
@@ -42,15 +41,21 @@ TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
     private var cleanTime = ""
 
     private lateinit var habitViewModel: HabitViewModel
-    private lateinit var binding: FragmentCreateHabitItemBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_create_habit_item, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d(TAG, "onViewCreated: is called")
+        Log.d("Main", "onViewCreated: is called")
         Toast.makeText(context, "onviewcreated is called", Toast.LENGTH_SHORT).show()
-        binding = FragmentCreateHabitItemBinding.bind(view)
         habitViewModel = ViewModelProvider(this).get(HabitViewModel::class.java)
 
-        binding.btnConfirm.setOnClickListener {
+        btn_confirm.setOnClickListener {
             //addHabitToDB()
         }
 
@@ -61,7 +66,7 @@ TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
     }
 
     private fun drawableSelected() {
-        binding.ivFastFoodSelected.setOnClickListener {
+        iv_fastFoodSelected.setOnClickListener {
             iv_fastFoodSelected.isSelected = !iv_fastFoodSelected.isSelected
             drawableSelected = R.drawable.ic_fastfood
 
@@ -69,7 +74,7 @@ TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
             iv_teaSelected.isSelected = false
         }
 
-        binding.ivSmokingSelected.setOnClickListener {
+        iv_smokingSelected.setOnClickListener {
             iv_smokingSelected.isSelected = !iv_smokingSelected.isSelected
             drawableSelected = R.drawable.ic_smoke
 
@@ -77,8 +82,8 @@ TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
             iv_fastFoodSelected.isSelected = false
         }
 
-        binding.ivTeaSelected.setOnClickListener{
-            binding.ivTeaSelected.isSelected = !binding.ivTeaSelected.isSelected
+        iv_teaSelected.setOnClickListener{
+            iv_teaSelected.isSelected = !iv_teaSelected.isSelected
             drawableSelected = R.drawable.ic_tea
 
             iv_fastFoodSelected.isSelected = false
@@ -88,13 +93,13 @@ TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 
     private fun pickDateAndTime() {
         btn_pickDate.setOnClickListener {
-            Log.d(TAG, "pickDate is clicked")
+            Log.d("Main", "pickDate is clicked")
             getDateCalender()
             DatePickerDialog(requireContext(),this,year,month,day).show()
         }
 
         btn_pickTime.setOnClickListener {
-            Log.d(TAG, "pickTime is clicked")
+            Log.d("Main", "pickTime is clicked")
             getTimeCalender()
             TimePickerDialog(context,this, hour, minute, true).show()
         }
@@ -102,12 +107,12 @@ TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         cleanTime = Calculations.cleanTime(hourOfDay,minute)
-        binding.tvTimeSelected.text = "Time: $cleanTime"
+        tv_timeSelected.text = "Time: $cleanTime"
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         cleanDate = Calculations.cleanDate(dayOfMonth,month,year)
-        binding.tvDateSelected.text = "Date: $cleanDate"
+        tv_dateSelected.text = "Date: $cleanDate"
     }
 
     private fun getTimeCalender(){

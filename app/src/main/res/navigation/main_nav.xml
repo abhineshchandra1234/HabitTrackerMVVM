@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/createHabitItem"
-        android:name="com.eegrab.habittrackermvvm.ui.fragments.updateHabit.UpdateHabitItem"
+        android:name="com.eegrab.habittrackermvvm.ui.fragments.createHabit.CreateHabitItem"
         android:label="Create habit"
         tools:layout="@layout/fragment_create_habit_item" >
         <action

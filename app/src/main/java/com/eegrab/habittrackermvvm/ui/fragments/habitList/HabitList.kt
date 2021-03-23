@@ -7,17 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.eegrab.habittrackermvvm.R
-import com.eegrab.habittrackermvvm.databinding.FragmentHabitListBinding
+import kotlinx.android.synthetic.main.fragment_habit_list.*
 
 
 class HabitList : Fragment(R.layout.fragment_habit_list) {
 
-    private lateinit var binding: FragmentHabitListBinding
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentHabitListBinding.bind(view)
 
-        binding.fabAdd.setOnClickListener {
+
+        fab_add.setOnClickListener {
           findNavController().navigate(R.id.action_habitList_to_createHabitItem)
         }
     }
