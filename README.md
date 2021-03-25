@@ -12,5 +12,6 @@
 - passing data btw fragments
 - swipe refresh feature
 - room database, ViewModel, LiveData
+- ViewPager2, onboarding screen
 
 [MVVM Habit Tracker App Tutorial in Android Studio (Room Database & ViewModel)](https://youtu.be/AWEalFAD5j8 "Named link title")
